@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <table>
+        {% for robo in object_list %}
+            <a href="{% url 'robo:details' robo.slug %}">{{ robo.nome }}</a>
+            {{ robo.descricao }} <br>
+        {% endfor %}
+    </table>
+{% endblock %}

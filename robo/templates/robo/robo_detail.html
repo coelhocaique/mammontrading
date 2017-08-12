@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <h1>{{ object.nome }}</h1>
+    <p>{{ object.descricao }}</p>
+    <img src="{{ object.imagem.url }}"/>
+    <p>{{ object.preco }}</p>
+    <form action="{% url 'robo:compra' object.slug %}" method='POST'>
+        {% csrf_token %}
+        <input type="submit" value="Comprar"/>
+    </form>
+{% endblock %}

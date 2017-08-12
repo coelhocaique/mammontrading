@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <table>
+        {% for video in object_list %}
+            <a href="{% url 'conteudo:video.details' video.slug %}">{{ video.titulo }}</a> <br>
+            {{ video.descricao }}
+        {% endfor %}
+    </table>
+{% endblock %}

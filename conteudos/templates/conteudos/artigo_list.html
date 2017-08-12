@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="article-list">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Artigos</h2>
+            </div>
+                {% for artigo in object_list %}
+                <div class="col-md-6 item">
+                    {% if artigo.imagem %}
+                        <a href="{% url 'conteudo:artigo.details' artigo.slug %}"><img class="img-responsive" src="{{ artigo.imagem.url }}"></a>
+                    {% else %}
+                        <a href="{% url 'conteudo:artigo.details' artigo.slug %}"><img class="img-responsive" src="{% static 'assets/img/desk.jpg'%}"></a>
+                    {% endif %}
+                    <h3 class="name">{{ artigo.titulo }}</h3>
+                    <p class="description">{{ artigo.descricao }}</p>
+                    <a href="{% url 'conteudo:artigo.details' artigo.slug %}" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                </div>
+                {% empty %}
+                    <p>Nenhum artigo disponivel</p>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}

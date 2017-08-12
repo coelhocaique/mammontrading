@@ -1,0 +1,25 @@
+{% extends 'conta/minha_conta.html' %}
+{% block dashboard_content %}
+    {% if success %}
+        <p>Login salvo com sucesso</p>
+    {% endif %}
+    {% for robo_comprado in user.robos.all %}
+        <form action="{% url 'robo:metatrade' robo_comprado.pk %}" method="post">
+            {% csrf_token %}
+            {{ robo_comprado.robo.nome }}
+            {{ robo_comprado.criado_em }}
+            {% if robo_comprado.status == 0 %}
+                <p>Pedente</p>
+            {% endif %}
+            {% if robo_comprado.status == 1 %}
+                <p>Ativo</p>
+                <input type="text" name="mt5" placeholder="Digita o login MT5" value="{{ robo_comprado.name_mt5 }}"/>
+                <input type="submit" value="salvar"/>
+                <a href="{{ robo_comprado.codigo.url }}" target="_blank">Download do codigo</a>
+            {% endif %}
+            <br>
+        </form>
+    {% empty %}
+        <p>Voce nao possui robos</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <h1>{{ object.titulo }}</h1>
+    {{ object.endereco|safe }}
+    <p>{{ object.descricao }}</p>
+{% endblock %}

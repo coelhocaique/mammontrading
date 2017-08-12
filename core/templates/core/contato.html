@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <div>
+        <h1>Fale Conosco</h1>
+        {% if is_valid %}
+            <p>Formulario enviado com sucesso</p>
+        {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="enviar">
+        </form>
+    </div>
+{% endblock %}
