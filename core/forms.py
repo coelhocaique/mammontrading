@@ -10,9 +10,9 @@ class FaleConosco(forms.Form):
     def send_email(self):
         subject = '[%s] Contato' % self.nome
         context = {
-            'name': self.cleaned_data['name'],
+            'name': self.cleaned_data['nome'],
             'email': self.cleaned_data['email'],
-            'message': self.cleaned_data['message'],
+            'message': self.cleaned_data['mensagem'],
         }
         template_name = 'core/contact_email.html'
         send_mail_template(

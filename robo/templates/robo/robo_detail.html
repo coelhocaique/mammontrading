@@ -1,11 +1,31 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block content %}
-    <h1>{{ object.nome }}</h1>
-    <p>{{ object.descricao }}</p>
-    <img src="{{ object.imagem.url }}"/>
-    <p>{{ object.preco }}</p>
-    <form action="{% url 'robo:compra' object.slug %}" method='POST'>
-        {% csrf_token %}
-        <input type="submit" value="Comprar"/>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="mt-4">{{ object.nome }}</h1>
+                <hr>
+                {{ object.descricao|safe }}
+            </div>
+            <div class="col-md-4">
+                <div class="card my-4">
+                    <h5 class="card-header">Resumo</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <p><strong>Plano:</strong> R$ {{ object.preco }}</p>
+                        </div>
+                        <form action="{% url 'robo:compra' object.slug %}" method='POST'>
+                            {% csrf_token %}
+                            <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit">Comprar!</button>
+                            </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

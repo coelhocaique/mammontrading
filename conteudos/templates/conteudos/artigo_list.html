@@ -1,25 +1,44 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="article-list">
-        <div class="container">
-            <div class="intro">
-                <h2 class="text-center">Artigos</h2>
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 ">
             </div>
+            <div class="col-md-8 ">
+                <h1 class="my-4">Artigos
+                    <small>artigos</small>
+                </h1>
                 {% for artigo in object_list %}
-                <div class="col-md-6 item">
-                    {% if artigo.imagem %}
-                        <a href="{% url 'conteudo:artigo.details' artigo.slug %}"><img class="img-responsive" src="{{ artigo.imagem.url }}"></a>
-                    {% else %}
-                        <a href="{% url 'conteudo:artigo.details' artigo.slug %}"><img class="img-responsive" src="{% static 'assets/img/desk.jpg'%}"></a>
-                    {% endif %}
-                    <h3 class="name">{{ artigo.titulo }}</h3>
-                    <p class="description">{{ artigo.descricao }}</p>
-                    <a href="{% url 'conteudo:artigo.details' artigo.slug %}" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a>
-                </div>
+                    <div class="container-fluid">
+                        <div class="card mb-4">
+                            {% if artigo.imagem %}
+                                <img class="card-img-top" src="{{ artigo.imagem.url }}" alt="{{ artigo.titulo }}">
+                            {% else %}
+                                <img class="card-img-top" src="{% static 'assets/img/desk.jpg' %}"
+                                     alt="{{ artigo.titulo }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h2 class="card-title">{{ artigo.titulo }}</h2>
+                                <p class="card-text">{{ artigo.descricao }}</p>
+                                <a href="{{ artigo.get_absolute_url }}" class="btn btn-primary">Leia Mais &rarr;</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        {{ artigo.criado_em }}
+                                    </div>
+                                    <a class="btn-sm btn-success" href="{{ artigo.endereco_original }}">Link original</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {% empty %}
                     <p>Nenhum artigo disponivel</p>
                 {% endfor %}
+            </div>
         </div>
     </div>
+    </body>
 {% endblock %}

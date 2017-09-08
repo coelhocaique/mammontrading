@@ -13,7 +13,7 @@ def contato(request):
     form = FaleConosco(request.POST or None)
     if form.is_valid():
         context['is_valid'] = True
-        form.send_email()
+        #form.send_email()
         form = FaleConosco()
 
     context['form'] = form

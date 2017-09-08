@@ -1,7 +1,30 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block content %}
-    <h1>{{ object.titulo }}</h1>
-    <p>{{ object.descricao }}</p>
-    <a href="{{ object.endereco_original }}">link original</a>
-    <p>{{ object.texto|safe }}</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 ">
+            </div>
+            <div class="col-md-8">
+                <h1 class="mt-4">{{ object.titulo }}</h1>
+                <p class="lead">
+                    <a class="btn-sm btn-success" href="{{ object.endereco_original }}">Link original</a>
+                </p>
+                <hr>
+                <p>{{ object.criado_em }}</p>
+                <hr>
+                {% if object.imagem %}
+                    <img class="card-img-top" src="{{ object.imagem.url }}" alt="{{ object.titulo }}">
+                {% else %}
+                    <img class="card-img-top" src="{% static 'assets/img/desk.jpg' %}"
+                         alt="{{ object.titulo }}">
+                {% endif %}
+                <hr>
+                {{ object.texto|safe }}
+                <hr>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+

@@ -1,9 +1,22 @@
 {% extends 'core/base.html' %}
 {% block content %}
-    <table>
+    <div class="container">
+        <h1 class="my-4">Videos
+            <small>Videos</small>
+        </h1>
         {% for video in object_list %}
-            <a href="{% url 'conteudo:video.details' video.slug %}">{{ video.titulo }}</a> <br>
-            {{ video.descricao }}
+            <div class="row">
+                <div class="col-md-7">
+                    {{ video.endereco|safe }}
+                </div>
+                <div class="col-md-5">
+                    <h3>{{ video.titulo }}</h3>
+                    <p>{{ video.descricao }}</p>
+                </div>
+            </div>
+            <hr>
+        {% empty %}
+            <p>Nenhum video disponivel</p>
         {% endfor %}
-    </table>
+    </div>
 {% endblock %}

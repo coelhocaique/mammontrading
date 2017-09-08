@@ -18,7 +18,7 @@ class Robo(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('robos:details', (), {'slug': self.slug})
+        return ('robo:details', (), {'slug': self.slug})
 
     class Meta:
         verbose_name = 'Robo'
