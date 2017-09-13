@@ -1,20 +1,41 @@
 {% extends "conta/minha_conta.html" %}
 
 {% block dashboard_content %}
-<form class="pure-form pure-form-stacked" method="post">
-    {% csrf_token %}
-    <fieldset>
-        {{ form.non_field_errors }}
-        {% for field in form %}
-        <div class="pure-control-group">
-            {{ field.label_tag }}
-            {{ field }}
-            {{ field.errors }}
+    {% if success %}
+        <div class="alert alert-success text-center">
+            <p>Dados alterados com sucesso.</p>
         </div>
-        {% endfor %}
-        <div class="pure-controls">
-            <button type="submit" class="pure-button pure-button-primary">Salvar Modificações</button>
+    {% endif %}
+    {% if form.email.errors %}
+        <div class="alert alert-warning">
+            <p>{{ form.email.errors }}</p>
         </div>
-    </fieldset>
-</form>
+    {% endif %}
+    {% if form.name.errors %}
+        <div class="alert alert-warning">
+            <p>{{ form.name.errors }}</p>
+        </div>
+    {% endif %}
+    <form class="pure-form pure-form-stacked" method="post">
+        {% csrf_token %}
+        <div class="form-group row g-mb-25">
+            <label class="col-sm-3 col-form-label g-mb-10" for="hf-email">Nome Completo</label>
+            <div class="col-sm-9">
+                <input id="hf-email" class="form-control u-form-control rounded-0" type="text" name="name"
+                       value="{{ form.name.value }}"
+                       placeholder="Nome Completo">
+            </div>
+        </div>
+        <div class="form-group row g-mb-25">
+            <label class="col-sm-3 col-form-label g-mb-10" for="hf-email">Email</label>
+            <div class="col-sm-9">
+                <input id="hf-email" class="form-control u-form-control rounded-0" type="email" name="email"
+                       value="{{ form.email.value }}" placeholder="Email">
+            </div>
+        </div>
+
+        <button class="btn u-btn-aqua g-font-size-12 text-uppercase g-py-15 g-px-25"
+                type="submit">Salvar Modificacoes
+        </button>
+    </form>
 {% endblock %}

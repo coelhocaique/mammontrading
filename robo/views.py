@@ -7,9 +7,10 @@ from .models import Robo, RoboComprado
 
 @login_required
 def comprar_robo(request, slug):
-   robo = get_object_or_404(Robo, slug=slug)
-   RoboComprado.objects.create(user=request.user, robo=robo)
-   return render(request, 'conta/robos.html')
+    if request.method == 'POST':
+        robo = get_object_or_404(Robo, slug=slug)
+        RoboComprado.objects.create(user=request.user, robo=robo)
+    return render(request, 'conta/robos.html')
 
 def adicionar_metatrade(request, pk):
     robo_comprado = get_object_or_404(RoboComprado, pk=pk, user=request.user)

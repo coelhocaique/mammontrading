@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, SenhaResetForm, EditarContaForm
 from .models import SenhaReset
 
+
 # Create your views here.
 def register(request):
     template_name = 'conta/login.html'
@@ -14,7 +15,7 @@ def register(request):
     if form.is_valid():
         user = form.save()
         user = authenticate(username=user.username,
-                                password=form.cleaned_data['password1'])
+                            password=form.cleaned_data['password1'])
         login(request, user)
         return redirect('core:home')
 
@@ -22,6 +23,7 @@ def register(request):
     context['form'] = form
     context['register'] = True
     return render(request, template_name, context)
+
 
 def senha_reset(request):
     template_name = 'conta/senha_reset.html'
@@ -33,6 +35,7 @@ def senha_reset(request):
         # enviar e-mail
     context['form'] = form
     return render(request, template_name, context)
+
 
 def senha_reset_confirmar(request, key):
     template_name = 'conta/senha_reset_confirmar.html'
@@ -50,15 +53,18 @@ def senha_reset_confirmar(request, key):
     context['form'] = form
     return render(request, template_name, context)
 
+
 @login_required
 def dashboard(request):
     template_name = 'conta/minha_conta.html'
     return render(request, template_name)
 
+
 @login_required
 def robos(request):
     template_name = 'conta/robos.html'
     return render(request, template_name)
+
 
 @login_required
 def editar(request):
@@ -69,8 +75,10 @@ def editar(request):
         form.save()
         msg = 'Dados alterados com sucesso'
         messages.add_message(request, messages.INFO, msg)
+        context['success'] = True
     context['form'] = form
     return render(request, template_name, context)
+
 
 @login_required
 def editar_senha(request):
@@ -79,7 +87,6 @@ def editar_senha(request):
     form = PasswordChangeForm(data=request.POST or None, user=request.user)
     if form.is_valid():
         form.save()
-        msg = 'A sua senha foi alterada com sucesso'
-        messages.add_message(request, messages.INFO, msg)
+        context['success'] = True
     context['form'] = form
-    return  render(request, template_name, context)
+    return render(request, template_name, context)

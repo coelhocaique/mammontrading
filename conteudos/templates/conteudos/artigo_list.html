@@ -1,46 +1,40 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block content %}
-    <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 ">
-            </div>
-            <div class="col-md-8 ">
-                <h1 class="my-4">Artigos
-                    <small>traders</small>
-                </h1>
-                <hr>
-                {% for artigo in object_list %}
-                    <div class="container-fluid">
-                        <div class="card mb-4">
-                            <h2 class="text-center card-title">{{ artigo.titulo }}</h2>
-                            {% if artigo.imagem %}
-                                <img class="card-img-top" src="{{ artigo.imagem.url }}" alt="{{ artigo.titulo }}">
-                            {% else %}
-                                <img class="card-img-top" src="{% static 'assets/img/desk.jpg' %}"
-                                     alt="{{ artigo.titulo }}">
-                            {% endif %}
-                            <div class="card-body">
-                                <p class="card-text">{{ artigo.descricao }}</p>
-                                <a href="{{ artigo.get_absolute_url }}" class="btn btn-primary">Leia Mais &rarr;</a>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        {{ artigo.criado_em }}
-                                    </div>
-                                    <a class="btn-sm btn-success" href="{{ artigo.endereco_original }}">Link
-                                        original</a>
-                                </div>
-                            </div>
+    <div class="u-heading-v1-1 g-bg-main g-brd-primary g-mb-20">
+        <h1 class="h1 text-center u-heading-v1__title">Artigos</h1>
+    </div>
+    {% for artigo in object_list %}
+        <div class="container-fluid">
+            <div class="artigos-container card mb-4">
+                <h2 class="text-center card-title">{{ artigo.titulo }}</h2>
+                <div class="image-artigo">
+                    {% if artigo.imagem %}
+                        <img class="card-img-top" src="{{ artigo.imagem.url }}" alt="{{ artigo.titulo }}">
+                    {% else %}
+                        <img class="card-img-top" src="{% static 'assets/img/desk.jpg' %}"
+                             alt="{{ artigo.titulo }}">
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ artigo.descricao }}</p>
+                    <a href="{{ artigo.get_absolute_url }}" class="btn btn-primary">Leia Mais &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row">
+                        <div class="col-md-10">
+                            {{ artigo.criado_em }}
                         </div>
+                        <a class="btn-sm btn-success" href="{{ artigo.endereco_original }}">Link
+                            original</a>
                     </div>
-                {% empty %}
-                    <p>Nenhum artigo disponivel</p>
-                {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-    </body>
+        <br>
+        <br>
+        <br>
+    {% empty %}
+        <p>Nenhum artigo disponivel</p>
+    {% endfor %}
 {% endblock %}

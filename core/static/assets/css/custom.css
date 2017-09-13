@@ -1,0 +1,13 @@
+/* Add here all your css styles (customizations) */
+.image-artigo {
+    margin: 40px;
+}
+
+
+h1 {
+    font-size: 60px !important;
+}
+
+.artigos-container{
+    background-color: #eeeeee;
+}

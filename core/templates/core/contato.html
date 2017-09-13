@@ -1,69 +1,67 @@
 {% extends 'core/base.html' %}
 {% block content %}
-    <br>
-    <br>
-    <div id="contact" class="container">
-        <h2 class="text-center">CONTATO</h2>
-        <br>
-        {% if is_valid %}
-            <div class="alert alert-success">
-                <strong> Mensagem enviada com sucesso!</strong>
-            </div>
-        {% elif form.errors %}
-            <div class="alert alert-warning">
-                {{ form.non_field_errors }}
-                {{ form.name.errors }}
-                {{ form.email.errors }}
-                {{ form.message.errors }}
-            </div>
-        {% endif %}
-        <div class="row">
-            <div class="col-sm-5">
-                <p>Entre em contato conosco e nós retornaremos para você dentro de 24 horas.</p>
-                <p><span class="glyphicon glyphicon-map-marker"></span> Sao Paulo, SP</p>
-                <p><span class="glyphicon glyphicon-phone"></span> +11 984841212</p>
-                <p><span class="glyphicon glyphicon-envelope"></span> faleconosco@mammontrading.com.br</p>
-            </div>
-            <div class="col-sm-7 slideanim">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-sm-6 form-group">
-                            <input class="form-control" id="name" name="nome" placeholder="Nome" type="text" required>
-                        </div>
-                        <div class="col-sm-6 form-group">
-                            <input class="form-control" id="email" name="email" placeholder="Email" type="email"
-                                   required>
-                        </div>
-                    </div>
-                    <textarea class="form-control" id="message" name="mensagem" placeholder="Mensagem"
-                              rows="5"></textarea><br>
-                    <div class="row">
-                        <div class="col-sm-12 form-group">
-                            <button class="btn btn-default pull-right" type="submit">Enviar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div id="googleMap" style="height:400px;width:100%;"></div>
-        <script>
-            function myMap() {
-                var myCenter = new google.maps.LatLng(-23.568716, -46.716003);
-                var mapProp = {
-                    center: myCenter,
-                    zoom: 12,
-                    scrollwheel: false,
-                    draggable: false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-                var marker = new google.maps.Marker({position: myCenter});
-                marker.setMap(map);
-            }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-MiSRU23GtwJ6goieMBHrdPvwIVPXL5I&callback=myMap"></script>
+    <div class="u-heading-v1-1 g-bg-main g-brd-primary g-mb-20">
+        <h1 class="h1 text-center u-heading-v1__title">Contato</h1>
     </div>
+    <br>
+    {% if is_valid %}
+        <div class="alert alert-success">
+            <strong> Mensagem enviada com sucesso!</strong>
+        </div>
+    {% elif form.errors %}
+        <div class="alert alert-warning">
+            {{ form.non_field_errors }}
+            {{ form.name.errors }}
+            {{ form.email.errors }}
+            {{ form.message.errors }}
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-5">
+            <p>Entre em contato conosco e nós retornaremos para você dentro de 24 horas.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> Sao Paulo, SP</p>
+            <p><span class="glyphicon glyphicon-phone"></span> +11 984841212</p>
+            <p><span class="glyphicon glyphicon-envelope"></span> faleconosco@mammontrading.com.br</p>
+        </div>
+        <div class="col-sm-7 slideanim">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="nome" placeholder="Nome" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email"
+                               required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="message" name="mensagem" placeholder="Mensagem"
+                          rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div id="googleMap" style="height:400px;width:100%;"></div>
+    <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(-23.568716, -46.716003);
+            var mapProp = {
+                center: myCenter,
+                zoom: 12,
+                scrollwheel: false,
+                draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({position: myCenter});
+            marker.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-MiSRU23GtwJ6goieMBHrdPvwIVPXL5I&callback=myMap"></script>
 {% endblock %}

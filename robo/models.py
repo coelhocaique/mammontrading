@@ -2,9 +2,15 @@ from django.db import models
 from conta.models import User
 from django.conf import settings
 
+
 # Create your models here.
 
 class Robo(models.Model):
+    TIPO = {
+        (0, 'Conservador'),
+        (1, 'Moderado'),
+        (2, 'Arrojado'),
+    }
     nome = models.CharField('Nome', max_length=100)
     slug = models.SlugField('Slug', max_length=100)
     imagem = models.ImageField(upload_to='imagens', verbose_name='Imagem')
@@ -12,6 +18,7 @@ class Robo(models.Model):
     descricao = models.TextField('Descricao')
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+    tipo = models.IntegerField('Tipo', choices=TIPO, default=0, blank=True)
 
     def __str__(self):
         return self.nome;
@@ -25,8 +32,8 @@ class Robo(models.Model):
         verbose_name_plural = 'Robos'
         ordering = ['nome']
 
-class RoboComprado(models.Model):
 
+class RoboComprado(models.Model):
     STATUS_COMPRA = {
         (0, 'Pendente'),
         (1, 'Aprovado'),

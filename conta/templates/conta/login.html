@@ -1,150 +1,103 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-9 foto-login"><img height="180" width="540"
-                                       src="https://clubedovalor.com.br/wp-content/uploads/2016/08/consultor-robo.jpg"/>
+    <section class="u-bg-overlay g-bg-pos-top-center g-bg-img-hero g-py-100">
+        <div class="container u-bg-overlay__inner">
+            <div class="u-heading-v1-1 g-bg-main g-brd-primary g-mb-20">
+                <h1 class="h1 text-center u-heading-v1__title">Entrar</h1>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="panel panel-login">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#" class="active" id="login-form-link">Login</a>
+            {% if form.non_field_errors %}
+                <div class="campo-erros-rf alert alert-warning">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            <div class="row justify-content-center align-items-center no-gutters">
+                <div class="col-lg-5 g-bg-teal g-rounded-left-5--lg-up">
+                    <div class="g-pa-50">
+                        <form class="g-py-15" action="{% url 'conta:login' %}" method="post" autocomplete="off">
+                            {% csrf_token %}
+                            <h2 class="h3 g-color-white mb-4">Login</h2>
+                            <div class="mb-4">
+                                <div class="input-group">
+                    <span class="input-group-addon g-width-45 g-brd-white g-color-white">
+                        <i class="icon-finance-067 u-line-icon-pro"></i>
+                      </span>
+                                    <input class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13"
+                                           type="text" name="username" placeholder="Username">
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <a href="#" id="register-form-link">Registrar</a>
+                            <div class="g-mb-40">
+                                <div class="input-group rounded">
+                    <span class="input-group-addon g-width-45 g-brd-white g-color-white">
+                          <i class="icon-communication-062 u-line-icon-pro"></i>
+                        </span>
+                                    <input class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13"
+                                           type="password" name="password" placeholder="password">
+                                </div>
                             </div>
-                        </div>
-                        <hr>
+                            <div class="g-mb-60">
+                                <button class="btn btn-md btn-block u-btn-white rounded text-uppercase g-py-13"
+                                        type="submit">Login
+                                </button>
+                            </div>
+                            <div class="text-center g-pos-rel pb-2 g-mb-60">
+                                <a href="{% url 'conta:senha_reset' %}"
+                                   class="btn btn-md btn-block u-btn-white rounded text-uppercase g-py-13">Esqueceu a
+                                    Senha?</a>
+                            </div>
+                        </form>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {% if form.non_field_errors %}
-                                    <div class="campo-erros alert alert-warning">
-                                        {{ form.non_field_errors }}
-                                    </div>
-                                {% endif %}
-                                <form id="login-form" action="{% url 'conta:login' %}" method="post" role="form"
-                                      style="display: block;">
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <input type="text" name="username" id="username" tabindex="1"
-                                               class="form-control" placeholder="Username" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2"
-                                               class="form-control" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-3"></div>
-                                            <div class="col-sm-6">
-                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4"
-                                                       class="form-control btn btn-login" value="Logar">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="text-center">
-                                                    <a href="{% url 'conta:senha_reset' %}" tabindex="5"
-                                                       class="forgot-password">Esqueceu a Senha?</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <form id="register-form" action="{% url 'conta:cadastre' %}" method="post"
-                                      role="form" style="display: none;">
-                                    {% if form.non_field_errors %}
-                                        <div class="campo-erros-rf alert alert-warning">
-                                            {{ form.non_field_errors }}
-                                        </div>
-                                    {% endif %}
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <input type="text" name="username" id="username" tabindex="1"
-                                               class="form-control" placeholder="Username" value="">
-                                        {% if form.username.errors %}
-                                            <div class="campo-erros-rf alert alert-warning">
-                                                {{ form.username.errors }}
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                                               placeholder="Email Address" value="">
-                                        {% if form.email.errors %}
-                                            <div class="campo-erros-rf alert alert-warning">
-                                                {{ form.email.errors }}
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password1" id="password" tabindex="2"
-                                               class="form-control" placeholder="Password">
-                                        {% if form.password1.errors %}
-                                            <div class="campo-erros-rf alert alert-warning">
-                                                {{ form.password1.errors }}
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password2" id="confirm-password"
-                                               tabindex="2" class="form-control" placeholder="Confirm Password">
-                                        {% if form.password2.errors %}
-                                            <div class="campo-erros-rf alert alert-warning">
-                                                {{ form.password2.errors }}
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-3"></div>
-                                            <div class="col-sm-6">
-                                                <input type="submit" name="register-submit" id="register-submit"
-                                                       tabindex="4" class="form-control btn btn-register"
-                                                       value="Registrar Agora">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                </div>
+
+                <div class="col-lg-5 g-bg-aqua g-rounded-right-5--lg-up">
+                    <div class="g-pa-50">
+                        <form class="g-py-15" action="{% url 'conta:cadastre' %}" method="post">
+                            {% csrf_token %}
+                            <h2 class="h3 g-color-white mb-4">Cadastrar</h2>
+                            <div class="mb-4">
+                                <div class="input-group rounded">
+                    <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                          <i class="icon-communication-128 u-line-icon-pro"></i>
+                        </span>
+                                    <input class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white  g-pl-0 g-pr-15 g-py-13"
+                                           type="username" name="username" placeholder="Username">
+                                </div>
                             </div>
-                        </div>
+                            <div class="mb-4">
+                                <div class="input-group rounded">
+                    <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                          <i class="icon-finance-067 u-line-icon-pro"></i>
+                        </span>
+                                    <input class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13"
+                                           type="email" name="email" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="input-group rounded">
+                    <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                          <i class="icon-communication-062 u-line-icon-pro"></i>
+                        </span>
+                                    <input class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13"
+                                           type="password" name="password1" placeholder="Senha">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="input-group rounded">
+                    <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                          <i class="icon-media-094 u-line-icon-pro"></i>
+                        </span>
+                                    <input class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13"
+                                           type="password" name="password2" placeholder="Confirmar Senha">
+                                </div>
+                            </div>
+                            <button class="btn btn-md btn-block u-btn-white rounded text-uppercase g-py-13"
+                                    type="submit">
+                                Registrar
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        $(function () {
-            $('#login-form-link').click(function (e) {
-                $("#login-form").delay(100).fadeIn(100);
-                $(".campo-erros-rf").fadeOut(100);
-                $("#register-form").fadeOut(100);
-                $('#register-form-link').removeClass('active');
-                $(this).addClass('active');
-                e.preventDefault();
-            });
-            $('#register-form-link').click(function (e) {
-                $("#register-form").delay(100).fadeIn(100);
-                $(".campo-erros").fadeOut(100);
-                $("#login-form").fadeOut(100);
-                $('#login-form-link').removeClass('active');
-                $(this).addClass('active');
-                e.preventDefault();
-            });
-            {% if register %}
-                $('#register-form-link').trigger('click')
-            {% endif %}
-        });
-    </script>
+    </section>
 {% endblock %}
