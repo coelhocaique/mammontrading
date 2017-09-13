@@ -8,11 +8,13 @@
             </div>
             <div class="col-md-8 ">
                 <h1 class="my-4">Artigos
-                    <small>artigos</small>
+                    <small>traders</small>
                 </h1>
+                <hr>
                 {% for artigo in object_list %}
                     <div class="container-fluid">
                         <div class="card mb-4">
+                            <h2 class="text-center card-title">{{ artigo.titulo }}</h2>
                             {% if artigo.imagem %}
                                 <img class="card-img-top" src="{{ artigo.imagem.url }}" alt="{{ artigo.titulo }}">
                             {% else %}
@@ -20,7 +22,6 @@
                                      alt="{{ artigo.titulo }}">
                             {% endif %}
                             <div class="card-body">
-                                <h2 class="card-title">{{ artigo.titulo }}</h2>
                                 <p class="card-text">{{ artigo.descricao }}</p>
                                 <a href="{{ artigo.get_absolute_url }}" class="btn btn-primary">Leia Mais &rarr;</a>
                             </div>
@@ -29,7 +30,8 @@
                                     <div class="col-md-10">
                                         {{ artigo.criado_em }}
                                     </div>
-                                    <a class="btn-sm btn-success" href="{{ artigo.endereco_original }}">Link original</a>
+                                    <a class="btn-sm btn-success" href="{{ artigo.endereco_original }}">Link
+                                        original</a>
                                 </div>
                             </div>
                         </div>

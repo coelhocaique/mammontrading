@@ -1,31 +1,42 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="pure-g-r content-ribbon">
-    <div class="pure-u-1">
-        {% if success %}
-        <p>Um e-mail foi enviando para você com mais detalhes de como criar uma nova senha</p>
-        {% else %}
-        <h2>Informe seu E-mail</h2>
-        <form class="pure-form pure-form-stacked" method="post">
-            {% csrf_token %}
-            <fieldset>
-                {{ form.non_field_errors }}
-
-                {% for field in form %}
-                <div class="pure-control-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {{ field.errors }}
-                </div>
-                {% endfor %}
-
-                <div class="pure-controls">
-                    <button type="submit" class="pure-button pure-button-primary">Enviar E-mail</button>
-                </div>
-            </fieldset>
-        </form>
-        {% endif %}
+    <div class="container">
+        <div class="row reset-senha">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                {% if success %}
+                    <div class="alert alert-success">
+                        <p>Um e-mail foi enviando para você com mais detalhes de como criar uma nova senha</p>
+                    </div>
+                {% else %}
+                    <h2>Informe seu E-mail</h2>
+                    <form id="login-form" action="" method="post" role="form"
+                          style="display: block;">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" tabindex="1" class="form-control"
+                                   placeholder="Email Address" value="">
+                            {% if form.email.errors %}
+                                <div class="campo-erros-rf alert alert-warning">
+                                    {{ form.email.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <input type="submit" name="register-submit" id="register-submit"
+                                           tabindex="4" class="form-control btn btn-register"
+                                           value="Recuperar">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}

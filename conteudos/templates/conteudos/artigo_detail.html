@@ -13,13 +13,6 @@
                 <hr>
                 <p>{{ object.criado_em }}</p>
                 <hr>
-                {% if object.imagem %}
-                    <img class="card-img-top" src="{{ object.imagem.url }}" alt="{{ object.titulo }}">
-                {% else %}
-                    <img class="card-img-top" src="{% static 'assets/img/desk.jpg' %}"
-                         alt="{{ object.titulo }}">
-                {% endif %}
-                <hr>
                 {{ object.texto|safe }}
                 <hr>
             </div>

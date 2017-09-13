@@ -9,6 +9,13 @@
             <div class="alert alert-success">
                 <strong> Mensagem enviada com sucesso!</strong>
             </div>
+        {% elif form.errors %}
+            <div class="alert alert-warning">
+                {{ form.non_field_errors }}
+                {{ form.name.errors }}
+                {{ form.email.errors }}
+                {{ form.message.errors }}
+            </div>
         {% endif %}
         <div class="row">
             <div class="col-sm-5">
@@ -18,21 +25,17 @@
                 <p><span class="glyphicon glyphicon-envelope"></span> faleconosco@mammontrading.com.br</p>
             </div>
             <div class="col-sm-7 slideanim">
-                {{ form.non_field_errors }}
                 <form action="" method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            {{ form.name.errors }}
                             <input class="form-control" id="name" name="nome" placeholder="Nome" type="text" required>
                         </div>
                         <div class="col-sm-6 form-group">
-                            {{ form.email.errors }}
                             <input class="form-control" id="email" name="email" placeholder="Email" type="email"
                                    required>
                         </div>
                     </div>
-                    {{ form.message.errors }}
                     <textarea class="form-control" id="message" name="mensagem" placeholder="Mensagem"
                               rows="5"></textarea><br>
                     <div class="row">

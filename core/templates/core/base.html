@@ -5,49 +5,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MammonTrading</title>
-    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'assets/css/home-mammon.css' %}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
 </head>
-
-
-<body id="page">
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'core:home' %}">Logo</a>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:home' %}">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'robo:index' %}">Robos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'conteudo:artigo.index' %}">Artigos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'conteudo:video.index' %}">Videos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:contato' %}">Fale Conosco</a>
-                </li>
+<body>
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'core:home' %}">MammonTrading </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'core:home' %}">Home</a></li>
+                <li><a href="{% url 'robo:index' %}">Robos</a></li>
+                <li><a href="{% url 'conteudo:artigo.index' %}">Artigos</a></li>
+                <li><a href="{% url 'conteudo:video.index' %}">Videos</a></li>
+                <li><a href="{% url 'core:contato' %}">Contato</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'conta:index' %}">Minha Conta</a></li>
+                {% else %}
+                    <li><a href="{% url 'conta:login' %}"><span class="glyphicon glyphicon-user"></span> Entrar</a></li>
+                {% endif %}
             </ul>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="btn" href="{% url 'conta:index' %}">Minha Conta</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="btn" href="{% url 'conta:login' %}">Entrar</a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-
+    </nav>
+</div>
 <div>
     {% if messages %}
         {% for message in messages %}
@@ -57,17 +46,5 @@
     {% block content %}
     {% endblock %}
 </div>
-<hr>
-<div class="footer-basic">
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; MammonTrading 2017</p>
-        </div>
-    </footer>
-</div>
-<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-<script src="{% static 'assets/js/popper.min.js' %}"></script>
-<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
-
 </html>

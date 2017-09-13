@@ -9,7 +9,7 @@ from .models import SenhaReset
 
 # Create your views here.
 def register(request):
-    template_name = 'conta/registro.html'
+    template_name = 'conta/login.html'
     form = RegisterForm(request.POST or None)
     if form.is_valid():
         user = form.save()
@@ -20,6 +20,7 @@ def register(request):
 
     context = {}
     context['form'] = form
+    context['register'] = True
     return render(request, template_name, context)
 
 def senha_reset(request):
