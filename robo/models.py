@@ -44,6 +44,7 @@ class RoboComprado(models.Model):
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     status = models.IntegerField('Situacao', choices=STATUS_COMPRA, default=0, blank=True)
     name_mt5 = models.CharField('Nome MT5', max_length=50)
+    token = models.CharField('token', max_length=100, default="", blank=True)
     codigo = models.FileField(upload_to='arquivos', blank=True, null=True)
 
     def ativar(self):
@@ -58,4 +59,14 @@ class RoboComprado(models.Model):
         return self.status == 1
 
     def __str__(self):
-        return self.user.name + " & " + self.robo.nome
+        return self.user.name or self.user.username + " & " + self.robo.nome
+
+    @classmethod
+    def ExistStatus(cls, status):
+        status_robo = RoboComprado.STATUS_COMPRA
+        for i in status_robo:
+            if str(i[0]) == status:
+                return True
+        return False
+
+

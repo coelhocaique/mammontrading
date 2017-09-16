@@ -3,23 +3,157 @@
     {% if success %}
         <p>Login salvo com sucesso</p>
     {% endif %}
-    {% for robo_comprado in user.robos.all %}
-        <form action="{% url 'robo:metatrade' robo_comprado.pk %}" method="post">
-            {% csrf_token %}
-            {{ robo_comprado.robo.nome }}
-            {{ robo_comprado.criado_em }}
-            {% if robo_comprado.status == 0 %}
-                <p>Pedente</p>
-            {% endif %}
-            {% if robo_comprado.status == 1 %}
-                <p>Ativo</p>
-                <input type="text" name="mt5" placeholder="Digita o login MT5" value="{{ robo_comprado.name_mt5 }}"/>
-                <input type="submit" value="salvar"/>
-                <a href="{{ robo_comprado.codigo.url }}" target="_blank">Download do codigo</a>
-            {% endif %}
-            <br>
-        </form>
-    {% empty %}
-        <p>Voce nao possui robos</p>
-    {% endfor %}
+    {% if status == '0' %}
+        <ul class="list-inline g-brd-bottom--sm g-brd-gray-light-v3 mb-5">
+            <li class="list-inline-item g-pb-10 g-px-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-transparent g-color-main g-color-gray-dark-v4 g-color-primary--hover g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=1">Ativos</a>
+            </li>
+            <li class="list-inline-item g-pb-10 g-pr-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-primary g-color-main g-color-black g-font-weight-600 g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=0">Pendentes</a>
+            </li>
+            <li class="list-inline-item g-pb-10 g-pl-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-transparent g-color-main g-color-gray-dark-v4 g-color-primary--hover g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=2">Cancelados</a>
+            </li>
+        </ul>
+        {% for robo_comprado in robos_comprado %}
+            <div class="g-pa-20">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-4">
+                            <h3 class="h5 mb-1"><a
+                                    href="{{ robo_comprado.robo.get_absolute_url }}"> {{ robo_comprado.robo.nome }}</a>
+                            </h3>
+                            <p>{{ robo_comprado.criado_em }}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 g-mb-30">
+                                <img class="img-fluid" src="{{ robo_comprado.robo.imagem.url }}"
+                                     alt="{{ robo_comprado.robo.nome }}">
+                            </div>
+
+                            <div class="col-4 col-sm-4 g-mb-30">
+                            </div>
+
+                            <div class="col-4 col-sm-4">
+                                <a class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mb-4 mt-5"
+                                   href="{% url 'robo:ativar_robo' robo_comprado.id %}">Pagar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Voce nao possui robos pendentes</p>
+        {% endfor %}
+    {% elif status == '2' %}
+        <ul class="list-inline g-brd-bottom--sm g-brd-gray-light-v3 mb-5">
+            <li class="list-inline-item g-pb-10 g-px-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-transparent g-color-main g-color-gray-dark-v4 g-color-primary--hover g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=1">Ativos</a>
+            </li>
+            <li class="list-inline-item g-pb-10 g-pl-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-transparent g-color-main g-color-gray-dark-v4 g-color-primary--hover g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=0">Pendentes</a>
+            </li>
+            <li class="list-inline-item g-pb-10 g-pr-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-primary g-color-main g-color-black g-font-weight-600 g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=2">Cancelados</a>
+            </li>
+        </ul>
+        {% for robo_comprado in robos_comprado %}
+            <div class="g-pa-20">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-4">
+                            <h3 class="h5 mb-1"><a
+                                    href="{{ robo_comprado.robo.get_absolute_url }}"> {{ robo_comprado.robo.nome }}</a>
+                            </h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 g-mb-30">
+                                <img class="img-fluid" src="{{ robo_comprado.robo.imagem.url }}"
+                                     alt="{{ robo_comprado.robo.nome }}">
+                            </div>
+
+                            <div class="col-4 col-sm-4 g-mb-30">
+                            </div>
+
+                            <div class="col-4 col-sm-4">
+                                <a class="btn btn-danger u-btn-bluegray g-font-size-12 text-uppercase g-py-12 g-px-25 mb-4 mt-5"
+                                   href="{{ robo_comprado.robo.get_absolute_url }}">Comprar novamente</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Voce nao possui robos cancelados</p>
+        {% endfor %}
+    {% else %}
+        <ul class="list-inline g-brd-bottom--sm g-brd-gray-light-v3 mb-5">
+            <li class="list-inline-item g-pb-10 g-pr-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-primary g-color-main g-color-black g-font-weight-600 g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=1">Ativos</a>
+            </li>
+            <li class="list-inline-item g-pb-10 g-px-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-transparent g-color-main g-color-gray-dark-v4 g-color-primary--hover g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=0">Pendentes</a>
+            </li>
+            <li class="list-inline-item g-pb-10 g-pl-10 g-mb-20 g-mb-0--sm">
+                <a class="g-brd-bottom g-brd-2 g-brd-transparent g-color-main g-color-gray-dark-v4 g-color-primary--hover g-text-underline--none--hover g-px-10 g-pb-13"
+                   href="{% url 'conta:robos' %}?status=2">Cancelados</a>
+            </li>
+        </ul>
+        {% for robo_comprado in robos_comprado %}
+            <div class="g-pa-20">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-4">
+                            <h3 class="h5 mb-1"><a
+                                    href="{{ robo_comprado.robo.get_absolute_url }}"> {{ robo_comprado.robo.nome }}</a>
+                            </h3>
+                            <p>{{ robo_comprado.criado_em }}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 g-mb-30">
+                                <img class="img-fluid" src="{{ robo_comprado.robo.imagem.url }}"
+                                     alt="{{ robo_comprado.robo.nome }}">
+                            </div>
+
+                            <div class="col-4 col-sm-4 g-mb-30">
+                            </div>
+
+                            <div class="col-4 col-sm-4">
+                                <a class="btn btn-block u-btn-blue g-font-size-12 text-uppercase g-py-12 g-px-25 mb-4 mt-5"
+                                   href="{% url 'robo:gerar_token' robo_comprado.id %}">Gerar token</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if robo_comprado.token %}
+                        <div class="shortcode-html">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="alert fade show g-brd-around g-brd-gray-light-v3 rounded-0"
+                                         role="alert">
+                                        <div class="media-body">
+                                            <div class="d-flex justify-content-between">
+                                                <p class="m-0 g-font-size-18 "><strong>Token</strong> </p>
+                                            </div>
+                                            <p class="m-0 g-font-size-16">{{ robo_comprado.token }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+        {% empty %}
+            <p>Voce nao possui robos ativos</p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

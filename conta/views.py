@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.contrib import messages
-from django.contrib.auth.forms import (UserCreationForm, PasswordChangeForm, SetPasswordForm)
-from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import (PasswordChangeForm, SetPasswordForm)
+from django.shortcuts import render, redirect, get_object_or_404
+
+from robo.models import RoboComprado
 from .forms import RegisterForm, SenhaResetForm, EditarContaForm
 from .models import SenhaReset
 
@@ -63,7 +66,32 @@ def dashboard(request):
 @login_required
 def robos(request):
     template_name = 'conta/robos.html'
-    return render(request, template_name)
+    status = request.GET.get('status')
+    user = request.user
+    cancelar_robos(user)
+
+    if not RoboComprado.ExistStatus(status):
+        status = 1
+
+    robos_comprado = user.robos.filter(status=status)
+
+    context = {}
+    context['robos_comprado'] = robos_comprado
+    context['status'] = status
+
+    return render(request, template_name, context)
+
+
+def cancelar_robos(user):
+    robos = user.robos.all()
+
+    for robo in robos:
+        if robo.esta_ativo:
+            continue
+
+        if robo.criado_em < (timezone.now() - timedelta(days=7)):
+            robo.cancelar()
+            robo.save()
 
 
 @login_required
