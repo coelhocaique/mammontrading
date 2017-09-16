@@ -3,4 +3,4 @@ Django==1.11.5
 gunicorn==19.4.5
 psycopg2==2.6.1
 django-tinymce==2.6.0
-
+PIllow==4.2.1
