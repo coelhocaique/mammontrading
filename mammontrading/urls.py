@@ -31,8 +31,8 @@ urlpatterns = [
     url(r'^conta/', include('conta.urls')),
     url(r'^robos/', include('robo.urls')),
     url(r'^metatrade/', include('metatrade.urls')),
-
-   url(r'^tinymce/', include('tinymce.urls'))
+    url(r'^client/', include('client.urls')),
+    url(r'^tinymce/', include('tinymce.urls'))
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
