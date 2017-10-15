@@ -17,7 +17,6 @@ class LSTM:
         # load_model
         # model.predict
         predictions = range(0, self.qtd_saidas)
-        pred_return = []
 
         return predictions
 
